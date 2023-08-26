@@ -2,7 +2,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
-const port = 3003; // You can choose any available port number
+const port = 3005; // You can choose any available port number
 
 let items = ["Buy Food", "Cook Food", "Eat Food"];
 let workItems = [];
@@ -30,20 +30,26 @@ app.get("/", (req, res) => {
   });
 });
 
-app.post("/add", function (req, res) {
+app.post("/", function (req, res) {
   let item = req.body.newItem;
-  items.push(item);
-  res.redirect("/");
+
+  if (req.body.list === "Work") {
+    workItems.push(item);
+    res.redirect("/work");
+  } else {
+    items.push(item);
+    res.redirect("/");
+  }
 });
 
 app.get("/work", function (req, res) {
   res.render("list", { listTitle: "Work List", newListItems: workItems });
 });
 
-app.post("/work/add", function (req, res) {
+app.post("/work", function (req, res) {
   let item = req.body.newItem;
   workItems.push(item);
-  res.redirect("/work");
+  req.redirect("/work");
 });
 
 // Start the server
