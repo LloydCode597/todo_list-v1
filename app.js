@@ -52,6 +52,10 @@ app.post("/work", function (req, res) {
   req.redirect("/work");
 });
 
+app.get("/about", function (req, res) {
+  res.render("about");
+});
+
 // Start the server
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
