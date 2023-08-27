@@ -1,8 +1,9 @@
 // Import required modules
 const express = require("express");
 const bodyParser = require("body-parser");
+const date = require(__dirname + "/date.js");
 const app = express();
-const port = 3005; // You can choose any available port number
+const port = 3008; // You can choose any available port number
 
 let items = ["Buy Food", "Cook Food", "Eat Food"];
 let workItems = [];
@@ -14,15 +15,7 @@ app.use(express.static("public"));
 app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {
-  let today = new Date();
-
-  let options = {
-    weekday: "long",
-    day: "numeric",
-    month: "long",
-  };
-
-  let day = today.toLocaleDateString("en-US", options);
+  const day = date.getDate();
 
   res.render("list", {
     listTitle: day,
